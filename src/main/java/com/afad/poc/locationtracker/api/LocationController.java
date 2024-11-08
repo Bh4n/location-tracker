@@ -4,6 +4,7 @@ package com.afad.poc.locationtracker.api;
 import com.afad.poc.locationtracker.entity.Location;
 import com.afad.poc.locationtracker.repository.LocationService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,13 +20,13 @@ public class LocationController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Location saveLocation(@RequestBody Location location) {
-        return locationService.saveLocation(location);
+    public ResponseEntity<Location> saveLocation(@RequestBody Location location)
+    {
+        return new ResponseEntity<>(locationService.saveLocation(location), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public List<Location> getAllLocations() {
-        return locationService.getAllLocations();
+    public ResponseEntity<List<Location>> getAllLocations() {
+        return new ResponseEntity<>(locationService.getAllLocations(),HttpStatus.OK);
     }
 }
